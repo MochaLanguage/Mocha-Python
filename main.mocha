@@ -1,9 +1,10 @@
 firstVariable set int 1;
 inputString set str;Input a number: ;
 secondVariable set inp inputString;
-catch;
+catch 6 10;
 secondVariable type int;
 error set str;That's not a number!;
+error out;
 jumpLine set int 2;
 jumpLine jump;
 variableName edit add firstVariable secondVariable;
