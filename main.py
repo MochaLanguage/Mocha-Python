@@ -136,7 +136,9 @@ def runCommand(line):
         except:
             linenum = (int(line[1]) if line[1].isdigit() else int(vars[line[1]]))-2
     if line[0] == "jmp":
-        linenum = (int(line[1]) if line[1].isdigit() else int(vars[line[1]]))-1
+        if line[1].startswith("+") or line[1].startswith("-"):
+            linenum += int(line[1][1:]) if line[1].startswith("+") else int(line[1])
+        else: linenum = (int(line[1]) if line[1].isdigit() else int(vars[line[1]]))-1
     elif line[0] == "try" and vars[line[2]]:
         linenum = (int(line[1]) if line[1].isdigit() else int(vars[line[1]]))-1
     else:

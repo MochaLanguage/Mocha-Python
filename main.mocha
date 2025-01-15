@@ -33,7 +33,7 @@ out "I have 6 favorite colors. Which one would you like to know?\n> "
 var inp userInput "Input a number:\n> "
 err 37 /catches the error on next line/
 var typ userInput int
-jmp 40
+jmp +4
 var str outputMessage set "That's not a number!\n"
 out outputMessage
 jmp 33
