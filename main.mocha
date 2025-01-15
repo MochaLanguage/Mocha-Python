@@ -28,7 +28,7 @@ try end saidNo
 var arr favoriteColors set ["red" "orange" "green" "blue"]
 var arr favoriteColors ins "yellow" 2 /red orange yellow green blue/
 var arr favoriteColors app "plurpl" /adds plurpl/
-var inp whichFavorite "I have 6 favorite colors. Which one would you like to know?\n> "
+out "I have 6 favorite colors. Which one would you like to know?\n> "
 
 var inp userInput "Input a number:\n> "
 err 37 /catches the error on next line/

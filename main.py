@@ -105,7 +105,7 @@ def runCommand(line):
                 vars[line[2]] = [int(i) if i.isdigit() else
                         float(i) if i.replace(".","").isdigit() else
                         i[1:-1] if i[0]=="\"" and i[-1]=="\"" else
-                        vars[i] for i in [line[0][1:]]+line[1:-1]+[line[-1][:-1]]]
+                        vars[i] for i in [line[4][1:]]+line[5:-1]+[line[-1][:-1]]]
             elif line[3] == "ins":
                 vars[line[2]].insert(int(line[5]) if line[5].isdigit() else int(vars[line[5]]), int(line[4]) if line[4].isdigit() else 
                         float(line[4]) if line[4].replace(".","").isdigit() else
