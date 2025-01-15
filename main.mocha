@@ -42,13 +42,14 @@ var arr pickedColor get favoriteColors userInput
 var arr numbers set ["1st" "2nd" "3rd" "4th" "5th" "6th"]
 var arr pickedNumber get numbers userInput
 var str outputMessage cct "My " pickedNumber
-var str outputMessage cct outputMessage " favorite number is "
+var str outputMessage cct outputMessage " favorite color is "
 var str outputMessage cct outputMessage pickedColor
 var str outputMessage cct outputMessage "!\n"
+out outputMessage
 slp 50 /waits for 0.50 seconds/
-err 52
+err 53
 var fil names "names.txt"
-jmp 54
+jmp 55
 out "Woopsicles!"
 end
 var int nameNum rng 1 10

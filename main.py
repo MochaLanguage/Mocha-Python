@@ -1,13 +1,11 @@
 import re
 from time import sleep
+from random import randint
 
 with open("main.mocha","r") as f:text=f.read()
 text = re.sub(r"/[^/]*?/", "", text)
 text = re.sub(r'(".*?")', lambda i: i.group(0).replace(" ", "\x00"), text)
 text = [[i.replace("\\n","\n").replace("\x00", " ") for i in re.split(r"\s+", line.strip())] for line in text.split("\n")]
-
-#TEST!
-with open("test","w") as f:f.write(str(text))
 
 running = True
 vars={}
@@ -31,6 +29,8 @@ def runCommand(line):
                 vars[line[2]] %= int(line[4]) if line[4].isdigit() else int(vars[line[4]])
             elif line[3] == "pow":
                 vars[line[2]] **= int(line[4]) if line[4].isdigit() else int(vars[line[4]])
+            elif line[3] == "rng":
+                vars[line[2]] = randint(int(line[4]) if line[4].isdigit() else int(vars[line[4]]), int(line[5]) if line[5].isdigit() else int(vars[line[5]]))
         elif line[1] == "dbl":
             if line[3] == "set":
                 try: vars[line[2]] = float(line[4])
@@ -99,7 +99,7 @@ def runCommand(line):
                 elif line[4] == "not":
                     vars[line[2]] = not vars[line[5]]
         elif line[1] == "fil":
-            with open(line[3], "r") as f:vars[line[2]] = f.readlines()
+            with open(vars[line[3]] if line[3] in vars else line[3][1:-1], "r") as f:vars[line[2]] = f.read().split("\n")
         elif line[1] == "arr":
             if line[3] == "set":
                 vars[line[2]] = [int(i) if i.isdigit() else
@@ -120,6 +120,8 @@ def runCommand(line):
                 vars[line[2]].pop(int(line[4]) if line[4].isdigit() else int(vars[line[4]]))
             elif line[3] == "len":
                 vars[line[2]] = len(vars[line[3]])
+            elif line[3] == "get":
+                vars[line[2]] = vars[line[4]][int(line[5])-1 if line[5].isdigit() else int(vars[line[5]])-1]
         elif line[1] == "lin":
             vars[line[2]] = linenum+1
     elif line[0] == "out":
