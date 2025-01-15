@@ -8,17 +8,17 @@ jmp 1
 var str outputMessage cct userInput " + 1 = "
 var int in set userInput
 var lin goBack
-var int goBack add goBack 3
+var int goBack add 3
 jmp function
 var str outputMessage cct outputMessage in
 out outputMessage
 var int loop set 5
 out loop
-var int loop sub loop 1
+var int loop sub 1
 var bln continue num eql loop 0
 var bln continue bln not continue
 try 16 continue
-var str outputMessage set "Yippee!\n"
+var str outputMessage set "\nYippee!\n"
 out outputMessage
 var inp userInput "Would you like me to list my favorite colors?\n> "
 var str userInput low userInput
@@ -63,6 +63,8 @@ end
 # Add one
 .var lin function
 var int in add 1
+var typ in str
+var str in cct in "\n"
 jmp goBack
 
 # Quick end

@@ -11,8 +11,10 @@ with open("test","w") as f:f.write(str(text))
 
 running = True
 vars={}
+linenum = 0
 
 def runCommand(line):
+    global linenum
     if line[0] == "var":
         if line[1] == "int":
             if line[3] == "set":
@@ -24,7 +26,7 @@ def runCommand(line):
             elif line[3] == "mlt":
                 vars[line[2]] *= int(line[4]) if line[4].isdigit() else int(vars[line[4]])
             elif line[3] == "div":
-                round(vars[line[2]]-0.5) /= int(line[4]) if line[4].isdigit() else int(vars[line[4]])
+                vars[line[2]] /= round((int(line[4]) if line[4].isdigit() else int(vars[line[4]]))-0.5)
             elif line[3] == "mod":
                 vars[line[2]] %= int(line[4]) if line[4].isdigit() else int(vars[line[4]])
             elif line[3] == "pow":
@@ -53,18 +55,18 @@ def runCommand(line):
                 except ValueError: vars[line[2]] **= float(vars[line[4]])
         elif line[1] == "typ":
             if line[3] == "int":
-                line[2] = int(line[2])
+                vars[line[2]] = int(vars[line[2]])
             elif line[3] == "dbl":
-                line[2] = float(line[2])
+                vars[line[2]] = float(vars[line[2]])
             elif line[3] == "str":
-                line[2] = str(line[2])
+                vars[line[2]] = str(vars[line[2]])
             elif line[3] == "bln":
-                line[2] = bool(line[2])
+                vars[line[2]] = bool(vars[line[2]])
         elif line[1] == "str":
             if line[3] == "set":
-                vars[line[2]] = line[4]
+                vars[line[2]] = line[4][1:-1]
             elif line[3] == "cct":
-                vars[line[2]] = str((line[4][1:-1] if line[4][0]=="\"" and line[4][-1]=="\"" else vars[line[4]]) + (line[5][1:-1] if line[5][0]=="\"" and line[5][-1]=="\"" else vars[line[5]]))
+                vars[line[2]] = str(str(line[4][1:-1] if line[4][0]=="\"" and line[4][-1]=="\"" else vars[line[4]]) + str(line[5][1:-1] if line[5][0]=="\"" and line[5][-1]=="\"" else vars[line[5]]))
             elif line[3] == "rpl":
                 vars[line[2]] = vars[line[2]].replace((line[4][1:-1] if line[4][0]=="\"" and line[4][-1]=="\"" else vars[line[4]]), (line[5][1:-1] if line[5][0]=="\"" and line[5][-1]=="\"" else vars[line[5]]))
             elif line[3] == "len":
@@ -87,7 +89,7 @@ def runCommand(line):
                     vars[line[2]] = float(line[5]) if line[5] not in vars else float(vars[line[5]]) > float(line[6]) if line[6] not in vars else float(vars[line[6]])
                 elif line[4] == "lss":
                     vars[line[2]] = float(line[5]) if line[5] not in vars else float(vars[line[5]]) < float(line[6]) if line[6] not in vars else float(vars[line[6]])
-            elif line[3] == "bin":
+            elif line[3] == "bln":
                 if line[4] == "and":
                     vars[line[2]] = vars[line[5]] and vars[line[6]]
                 elif line[4] == "or":
@@ -98,15 +100,52 @@ def runCommand(line):
                     vars[line[2]] = not vars[line[5]]
         elif line[1] == "fil":
             with open(line[3], "r") as f:vars[line[2]] = f.readlines()
+        elif line[1] == "arr":
+            if line[3] == "set":
+                vars[line[2]] = [int(i) if i.isdigit() else
+                        float(i) if i.replace(".","").isdigit() else
+                        i[1:-1] if i[0]=="\"" and i[-1]=="\"" else
+                        vars[i] for i in [line[0][1:]]+line[1:-1]+[line[-1][:-1]]]
+            elif line[3] == "ins":
+                vars[line[2]].insert(int(line[5]) if line[5].isdigit() else int(vars[line[5]]), int(line[4]) if line[4].isdigit() else 
+                        float(line[4]) if line[4].replace(".","").isdigit() else
+                        line[4][1:-1] if line[4][0]=="\"" and line[4][-1]=="\"" else
+                        vars[line[4]])
+            elif line[3] == "app":
+                vars[line[2]].append(int(line[4]) if line[4].isdigit() else 
+                        float(line[4]) if line[4].replace(".","").isdigit() else
+                        line[4][1:-1] if line[4][0]=="\"" and line[4][-1]=="\"" else
+                        vars[line[4]])
+            elif line[3] == "pop":
+                vars[line[2]].pop(int(line[4]) if line[4].isdigit() else int(vars[line[4]]))
+            elif line[3] == "len":
+                vars[line[2]] = len(vars[line[3]])
+        elif line[1] == "lin":
+            vars[line[2]] = linenum+1
     elif line[0] == "out":
-        print(line[1][1:-1] if line[1][0]=="\"" and line[1][-1]=="\"" else vars[line[1]],end="")
-
-for line in text:
-    if line[0].startswith("."):
-        runCommand(line)
+        print(line[1][1:-1] if line[1][0]=="\"" and line[1][-1]=="\"" else str(vars[line[1]]),end="")
+    elif line[0] == "slp":
+        sleep(float(line[1])/50)
+    elif line[0] == "end":
+        global running
+        running = False
+    elif line[0] == "err":
+        try:runCommand(text[linenum+1])
+        except:
+            linenum = (int(line[1]) if line[1].isdigit() else int(vars[line[1]]))-2
+    if line[0] == "jmp":
+        linenum = (int(line[1]) if line[1].isdigit() else int(vars[line[1]]))-1
+    elif line[0] == "try" and vars[line[2]]:
+        linenum = (int(line[1]) if line[1].isdigit() else int(vars[line[1]]))-1
+    else:
+        linenum+=1
+    #//print(f"Success! {line}")
+    
+for i in range(len(text)):
+    linenum=i
+    if text[i][0].startswith("."):
+        runCommand([text[i][0][1:]]+text[i][1:])
 
 linenum = 0
 while running:
     runCommand(text[linenum])
-    linenum+=1
-    running=not running
