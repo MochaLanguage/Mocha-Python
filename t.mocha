@@ -1,0 +1,73 @@
+var inp userInput "Input a number:\n> "
+err 5 /catches the error on next line/
+var typ userInput int
+jmp 8
+var str outputMessage set "That's not a number!\n"
+out outputMessage
+jmp 1
+var str outputMessage cct userInput " + 1 = "
+var int in set userInput
+var lin goBack
+var int goBack add 3
+jmp function
+var str outputMessage cct outputMessage in
+out outputMessage
+var int loop set 5
+out loop
+var int loop sub 1
+var bln continue num eql loop 0
+var bln continue bln not continue
+try 16 continue
+var str outputMessage set "\nYippee!\n"
+out outputMessage
+var inp userInput "Would you like me to list my favorite colors?\n> "
+var str userInput low userInput
+var bln saidYes str eql userInput "yes"
+var bln saidNo bln not saidYes
+try end saidNo
+var arr favoriteColors set ["red" "orange" "green" "blue"]
+var arr favoriteColors ins "yellow" 2 /red orange yellow green blue/
+var arr favoriteColors app "plurpl" /adds plurpl/
+out "I have 6 favorite colors. Which one would you like to know?\n> "
+
+var inp userInput "Input a number:\n> "
+err 37 /catches the error on next line/
+var typ userInput int
+jmp +4
+var str outputMessage set "That's not a number!\n"
+out outputMessage
+jmp 33
+
+var arr pickedColor get favoriteColors userInput
+var arr numbers set ["1st" "2nd" "3rd" "4th" "5th" "6th"]
+var arr pickedNumber get numbers userInput
+var str outputMessage cct "My " pickedNumber
+var str outputMessage cct outputMessage " favorite color is "
+var str outputMessage cct outputMessage pickedColor
+var str outputMessage cct outputMessage "!\n"
+out outputMessage
+slp 50 /waits for 0.50 seconds/
+err 53
+var fil names "names.txt"
+jmp 55
+out "Woopsicles!"
+end
+var int nameNum rng 1 10
+var arr myName get names nameNum
+var str outputMessage cct "By the way, my name is " myName
+var str outputMessage cct outputMessage "!\nGood night!"
+out outputMessage
+end
+
+## Functions ##
+
+# Add one
+.var lin function
+var int in add 1
+var typ in str
+var str in cct in "\n"
+jmp goBack
+
+# Quick end
+.var lin end
+end

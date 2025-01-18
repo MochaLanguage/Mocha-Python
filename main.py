@@ -3,7 +3,11 @@ from time import sleep
 from random import randint
 
 with open("main.mocha","r") as f:text=f.read()
-text = re.sub(r"/[^/]*?/", "", text)
+import re
+
+text = re.sub(r"(?<!\\)/.*?(?<!\\)/", "", text)
+text = re.sub(r"\\/", "/", text)
+
 text = re.sub(r'(".*?")', lambda i: i.group(0).replace(" ", "\x00"), text)
 text = [[i.replace("\\n","\n").replace("\x00", " ") for i in re.split(r"\s+", line.strip())] for line in text.split("\n")]
 
@@ -13,6 +17,8 @@ linenum = 0
 
 def runCommand(line):
     global linenum
+    if line[0][0].startswith("."):
+        line[0] = line[0][1:]
     if line[0] == "var":
         if line[1] == "int":
             if line[3] == "set":
@@ -143,7 +149,6 @@ def runCommand(line):
         linenum = (int(line[1]) if line[1].isdigit() else int(vars[line[1]]))-1
     else:
         linenum+=1
-    #//print(f"Success! {line}")
     
 for i in range(len(text)):
     linenum=i
