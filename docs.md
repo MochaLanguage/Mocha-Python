@@ -39,17 +39,21 @@ These lines are still able to be run when going through the program again.
 ## `out`: Printing to the console
 The `out` command takes one argument, being either a string or variable.  
 A newline character is required at the end of the argument.  
+You can also add no argument to just print a newline.
 ```out "Hello world!\n"
 out "How are you today?"
 var str name set "John Smith"
 out "Whats your name?\n"
 out "Mine is "
 out name
+out
+out "How do you do?"
 ```
 This code would print out to the terminal:
 ```Hello world!
 How are you today?Whats your name?
 Mine is John Smith
+How do you do?
 ```
 ## `var`: Variables
 The `var` command is the most versatile command in Mocha and is the backbone of the language.  
@@ -318,3 +322,65 @@ Assuming this is the start of the program:
 Hi there.
 Current line: 2
 ```
+## `jmp`
+The `jmp` command is used to jump to a specific line number or relative line number in the script.
+```
+out "This is the start.\n"
+jmp +2
+out "This will be skipped.\n"
+out "This is after the jump.\n"
+jmp 1
+```
+would output:
+```
+This is the start.
+This is after the jump.
+This is the start.
+This is after the jump.
+...
+```
+This will loop forever.
+
+## `try`
+The `try` command is used to conditionally jump to a specific line number if a boolean variable is true.
+
+#### Example
+```
+var bln condition num eql 1 1
+try 5 condition
+out "This will be skipped if condition is true.\n"
+out "This will also be skipped if condition is true.\n"
+out "This will always be executed."
+```
+would output:
+```
+This will always be executed.
+```
+
+## `err`
+The `err` command is used to handle errors by jumping to a specific line number if an error occurs.
+
+#### Example
+```
+var int number set 10
+err 5
+var int result div number 0
+out "This will be skipped if an error occurs.\n"
+out "This will always be run."
+```
+would output:
+```
+This will always be run..
+```
+## `slp`
+The `slp` command pauses the program for a certain amount of time.  
+It takes one argument, an integer or variable, and pauses for that many milliseconds.
+```
+var int number set 0
+var int number add 1
+out number
+out
+slp 1000
+jmp 2
+```
+would return a new number every second.

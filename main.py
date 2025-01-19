@@ -134,9 +134,9 @@ def runCommand(line):
         elif line[1] == "lin":
             vars[line[2]] = linenum+1
     elif line[0] == "out":
-        print(line[1][1:-1] if line[1][0]=="\"" and line[1][-1]=="\"" else str(vars[line[1]]),end="")
+        print((line[1][1:-1] if line[1][0]=="\"" and line[1][-1]=="\"" else str(vars[line[1]])) if len(line)>1 else "\n",end="")
     elif line[0] == "slp":
-        sleep(float(line[1])/50)
+        sleep(float(line[1])/1000)
     elif line[0] == "end":
         global running
         running = False
