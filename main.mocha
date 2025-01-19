@@ -1,18 +1,29 @@
-var arr colors set ["red" "green" "blue"]
-var arr colors ins "yellow" 2
-out colors
+var str firstName set "John"
+var bln isSameName str eql firstName "John"
+out isSameName
+out ", they are the same name!\n"
+
+var int number set 10
+var bln isEqual num eql number 20
+var bln isGreater num grt number 5
+var bln isLess num lss number 5
+out isEqual
+out ", 10 and 20 are not equal!\n"
+out isGreater
+out ", 10 is greater than 5!\n"
+out isLess
+out ", 10 is not less than 5!\n"
+
+var bln trueValue num eql 1 1
+var bln falseValue num eql 1 2
+var bln andResult bln and trueValue falseValue
+var bln orResult bln or trueValue falseValue
+var bln xorResult bln xor trueValue falseValue
+var bln notResult bln not trueValue
+out andResult
 out "\n"
-var arr colors app "purple"
-var arr colors pop 1
-out colors
+out orResult
 out "\n"
-var int colorsLength len colors
-var str firstColor get colors 1
-out colors
+out xorResult
 out "\n"
-out colorsLength
-end
-out "\n"
-out firstColor
-out "\n"
-end
+out notResult

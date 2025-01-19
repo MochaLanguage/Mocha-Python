@@ -10,6 +10,7 @@ text = re.sub(r"\\/", "/", text)
 
 text = re.sub(r'(".*?")', lambda i: i.group(0).replace(" ", "\x00"), text)
 text = [[i.replace("\\n","\n").replace("\x00", " ") for i in re.split(r"\s+", line.strip())] for line in text.split("\n")]
+text = [i for i in text if i and i[0] != ""]
 
 running = True
 vars={}
@@ -92,11 +93,11 @@ def runCommand(line):
                 vars[line[2]] = (line[5][1:-1] if line[5][0]=="\"" and line[5][-1]=="\"" else vars[line[5]]) == (line[6][1:-1] if line[6][0]=="\"" and line[6][-1]=="\"" else vars[line[6]])
             elif line[3] == "num":
                 if line[4] == "eql":
-                    vars[line[2]] = float(line[5]) if line[5] not in vars else float(vars[line[5]]) == float(line[6]) if line[6] not in vars else float(vars[line[6]])
+                    vars[line[2]] = (float(line[5]) if line[5] not in vars else float(vars[line[5]])) ==( float(line[6]) if line[6] not in vars else float(vars[line[6]]))
                 elif line[4] == "grt":
-                    vars[line[2]] = float(line[5]) if line[5] not in vars else float(vars[line[5]]) > float(line[6]) if line[6] not in vars else float(vars[line[6]])
+                    vars[line[2]] = (float(line[5]) if line[5] not in vars else float(vars[line[5]])) > (float(line[6]) if line[6] not in vars else float(vars[line[6]]))
                 elif line[4] == "lss":
-                    vars[line[2]] = float(line[5]) if line[5] not in vars else float(vars[line[5]]) < float(line[6]) if line[6] not in vars else float(vars[line[6]])
+                    vars[line[2]] = (float(line[5]) if line[5] not in vars else float(vars[line[5]])) < (float(line[6]) if line[6] not in vars else float(vars[line[6]]))
             elif line[3] == "bln":
                 if line[4] == "and":
                     vars[line[2]] = vars[line[5]] and vars[line[6]]

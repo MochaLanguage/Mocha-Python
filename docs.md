@@ -110,14 +110,14 @@ HELLO THERE!
 ```
 ### Integers
 #### Methods
-Setting: `set` to set an integer to either another variable or new integer value.
-Addition: `add` to add a value to an integer.
-Subtraction: `sub` to subtract a value from an integer.
-Multiplication: `mlt` to multiply an integer by a value.
-Division: `div` to divide an integer by a value.
-Modulus: `mod` to get the remainder of an integer division.
-Power: `pow` to raise an integer to the power of a value.
-Random: `rng` to set an integer to a random value within a specified range.
+Setting: `set` to set an integer to either another variable or new integer value.  
+Addition: `add` to add a value to an integer.  
+Subtraction: `sub` to subtract a value from an integer.  
+Multiplication: `mlt` to multiply an integer by a value.  
+Division: `div` to divide an integer by a value.  
+Modulus: `mod` to get the remainder of an integer division.  
+Power: `pow` to raise an integer to the power of a value.  
+Random: `rng` to set an integer to a random value within a specified range.  
 
 #### Example
 ```
@@ -142,14 +142,14 @@ would return:
 
 ### Doubles
 #### Methods
-Setting: `set` to set a double to either another variable or new double value.
-Addition: `add` to add a value to a double.
-Subtraction: `sub` to subtract a value from a double.
-Multiplication: `mlt` to multiply a double by a value.
-Division: `div` to divide a double by a value.
-Modulus: `mod` to get the remainder of a double division.
-Power: `pow` to raise a double to the power of a value.
-Round: `rnd` to round a double to the nearest integer.
+Setting: `set` to set a double to either another variable or new double value.  
+Addition: `add` to add a value to a double.  
+Subtraction: `sub` to subtract a value from a double.  
+Multiplication: `mlt` to multiply a double by a value.  
+Division: `div` to divide a double by a value.  
+Modulus: `mod` to get the remainder of a double division.  
+Power: `pow` to raise a double to the power of a value.  
+Round: `rnd` to round a double to the nearest integer.  
 
 #### Example
 ```
@@ -172,21 +172,25 @@ would return:
 
 ### Arrays
 #### Methods
-Setting: `set` to initialize an array with values.
-Inserting: `ins` to insert an element at a specific index.
-Appending: `app` to add an element to the end of the array.
-Popping: `pop` to remove an element at a specific index.
-Length: `len` to get the number of elements in the array.
-Getting: `get` to retrieve an element by index.
+Setting: `set` to initialize an array with values.  
+Inserting: `ins` to insert an element at a specific index.  
+Appending: `app` to add an element to the end of the array.  
+Popping: `pop` to remove an element at a specific index.  
+Length: `len` to get the number of elements in the array.  
+Getting: `get` to retrieve an element by index.  
 
 #### Example
 ```
 var arr colors set ["red" "green" "blue"]
 var arr colors ins "yellow" 2
+out colors
+out "\n"
 var arr colors app "purple"
 var arr colors pop 1
-var int colorsLength len colors
-var str firstColor get colors 1
+out colors
+out "\n"
+var arr colorsLength len colors
+var arr firstColor get colors 1
 out colors
 out "\n"
 out colorsLength
@@ -196,7 +200,121 @@ out "\n"
 ```
 would return:
 ```
-["red", "yellow", "blue", "purple"]
+['red', 'green', 'yellow', 'blue']
+['red', 'yellow', 'blue', 'purple']
+['red', 'yellow', 'blue', 'purple']
 4
 red
+```
+<sup>* Printing of arrays will change depending on the interpreter language.</sup>
+
+### Booleans
+#### Methods
+String equality: `str eql` to check if two strings are equal.  
+Numeric equality: `num eql` to check if two numbers are equal.  
+Greater than: `num grt` to check if one number is greater than another.  
+Less than: `num lss` to check if one number is less than another.  
+Logical AND: `bln and` to perform a logical AND operation.  
+Logical OR: `bln or` to perform a logical OR operation.  
+Logical XOR: `bln xor` to perform a logical XOR operation.  
+Logical NOT: `bln not` to perform a logical NOT operation.  
+
+#### Example
+```
+var str firstName set "John"
+var bln isSameName str eql firstName "John"
+out isSameName
+out ", they are the same name!\n"
+
+var int number set 10
+var bln isEqual num eql number 20
+var bln isGreater num grt number 5
+var bln isLess num lss number 5
+out isEqual
+out ", 10 and 20 are not equal!\n"
+out isGreater
+out ", 10 is greater than 5!\n"
+out isLess
+out ", 10 is not less than 5!\n"
+
+var bln trueValue num eql 1 1
+var bln falseValue num eql 1 2
+var bln andResult bln and trueValue falseValue
+var bln orResult bln or trueValue falseValue
+var bln xorResult bln xor trueValue falseValue
+var bln notResult bln not trueValue
+out andResult
+out "\n"
+out orResult
+out "\n"
+out xorResult
+out "\n"
+out notResult
+```
+would return:
+```
+True, they are the same name!
+False, 10 and 20 are not equal!
+True, 10 is greater than 5!
+False, 10 is not less than 5!
+False
+True
+True
+False
+```
+<sup>* Printing of booleans will change depending on the interpreter language.</sup>
+
+### Opening Files
+The `fil` method is used to read the contents of a file into a variable. The file contents are split into lines and stored as an array.
+
+#### Example
+```
+var fil fileContents "example.txt"
+var arr firstLine get fileContents 1
+out firstLine
+```
+would return the first line of the file `example.txt`.
+
+### Getting User Input
+The `inp` method is used to get input from the user and store it in a variable.
+
+#### Example
+```
+var inp userInput "Enter your name: "
+out "Hello, "
+out userInput
+out "!"
+```
+would prompt the user to enter their name and then greet them.
+
+### Type Changing
+The `typ` method is used to change the type of a variable.
+
+#### Example
+```
+var str numberStr set "123"
+var typ numberStr int
+var int number add numberStr 10
+out number
+```
+would return:
+```
+133
+```
+
+### Line Getting
+The `lin` method is used to get the current line number and store it in a variable.
+
+#### Example
+```
+out "Hi there.\n"
+var lin currentLine
+out "Current line: "
+out currentLine
+```
+would output the current line number.  
+Assuming this is the start of the program:
+```
+Hi there.
+Current line: 2
 ```
