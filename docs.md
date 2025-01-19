@@ -1,5 +1,5 @@
 # Overview
-Mocha is a simple procedural programming language that has many different interpretors.
+Mocha is a simple procedural programming language that has many different interpreters.
 
 # Syntax
 ## Strings
@@ -65,4 +65,138 @@ There are also multiple methods to create or change a varible:
 2. Getting a user input, `inp`
 3. Changing the variable type, `typ`
 4. Getting the current line, `lin`
+### Strings
+#### Methods
+Setting: `set` to set a string, to either another variable or a string.  
+Concatenating: `cct` to concatenate two strings or variables.  
+Replacing: `rpl` to replace every instance of a substring in a string with another string.  
+Getting length: `len` to get the length of a string.  
+Substring: `sub` to get a substring of a string.
+Lowercasing: `low` to lowercase a string.  
+Uppercasing: `upp` to uppercase a string.
+#### Example
+```
+var str firstName set "John "
+var str lastName set "Doe"
+var str fullName cct firstName lastName
+out fullName
+out "\n"
+var str fullName rpl "John" "Jane"
+out fullName
+out "\n"
+var str nameLength len firstName
+out nameLength
+out "\n"
+var str greeting set "Hello there!"
+var str greeting sub 1 5
+out greeting
+out "\n"
+var str greeting set "Hello there!"
+var str greeting low
+out greeting
+out "\n"
+var str greeting upp
+out greeting
+out "\n"
+```
+would return:
+```
+John Doe
+Jane Doe
+5
+ello
+hello there!
+HELLO THERE!
+```
+### Integers
+#### Methods
+Setting: `set` to set an integer to either another variable or new integer value.
+Addition: `add` to add a value to an integer.
+Subtraction: `sub` to subtract a value from an integer.
+Multiplication: `mlt` to multiply an integer by a value.
+Division: `div` to divide an integer by a value.
+Modulus: `mod` to get the remainder of an integer division.
+Power: `pow` to raise an integer to the power of a value.
+Random: `rng` to set an integer to a random value within a specified range.
 
+#### Example
+```
+var int number set 10
+var int number add 5
+var int number sub 3
+var int number mlt 2
+var int number div 4
+var int number mod 3
+var int number pow 2
+var int randomNumber rng 1 100
+out number
+out "\n"
+out randomNumber
+out "\n"
+```
+would return:
+```
+16
+(random number between 1 and 100)
+```
+
+### Doubles
+#### Methods
+Setting: `set` to set a double to either another variable or new double value.
+Addition: `add` to add a value to a double.
+Subtraction: `sub` to subtract a value from a double.
+Multiplication: `mlt` to multiply a double by a value.
+Division: `div` to divide a double by a value.
+Modulus: `mod` to get the remainder of a double division.
+Power: `pow` to raise a double to the power of a value.
+Round: `rnd` to round a double to the nearest integer.
+
+#### Example
+```
+var dbl number set 10.5
+var dbl number add 5.2
+out number
+out "\n"
+var dbl number sub 3.7
+var dbl number mlt 2
+var dbl number div 4
+var dbl number pow 2
+var dbl number rnd
+out number
+```
+would return:
+```
+15.7
+36
+```
+
+### Arrays
+#### Methods
+Setting: `set` to initialize an array with values.
+Inserting: `ins` to insert an element at a specific index.
+Appending: `app` to add an element to the end of the array.
+Popping: `pop` to remove an element at a specific index.
+Length: `len` to get the number of elements in the array.
+Getting: `get` to retrieve an element by index.
+
+#### Example
+```
+var arr colors set ["red" "green" "blue"]
+var arr colors ins "yellow" 2
+var arr colors app "purple"
+var arr colors pop 1
+var int colorsLength len colors
+var str firstColor get colors 1
+out colors
+out "\n"
+out colorsLength
+out "\n"
+out firstColor
+out "\n"
+```
+would return:
+```
+["red", "yellow", "blue", "purple"]
+4
+red
+```

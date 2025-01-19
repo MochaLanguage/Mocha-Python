@@ -59,6 +59,8 @@ def runCommand(line):
             elif line[3] == "pow":
                 try: vars[line[2]] **= float(line[4])
                 except ValueError: vars[line[2]] **= float(vars[line[4]])
+            elif line[3] == "rnd":
+                vars[line[2]] = round(vars[line[2]])
         elif line[1] == "typ":
             if line[3] == "int":
                 vars[line[2]] = int(vars[line[2]])
@@ -125,7 +127,7 @@ def runCommand(line):
             elif line[3] == "pop":
                 vars[line[2]].pop(int(line[4]) if line[4].isdigit() else int(vars[line[4]]))
             elif line[3] == "len":
-                vars[line[2]] = len(vars[line[3]])
+                vars[line[2]] = len(vars[line[4]])
             elif line[3] == "get":
                 vars[line[2]] = vars[line[4]][int(line[5])-1 if line[5].isdigit() else int(vars[line[5]])-1]
         elif line[1] == "lin":

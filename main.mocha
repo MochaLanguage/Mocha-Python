@@ -1,4 +1,18 @@
-out "He/test/llo\n"
-out "Hi \/ there! \/"
-out "final \ test"
+var arr colors set ["red" "green" "blue"]
+var arr colors ins "yellow" 2
+out colors
+out "\n"
+var arr colors app "purple"
+var arr colors pop 1
+out colors
+out "\n"
+var int colorsLength len colors
+var str firstColor get colors 1
+out colors
+out "\n"
+out colorsLength
+end
+out "\n"
+out firstColor
+out "\n"
 end
