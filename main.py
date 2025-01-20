@@ -22,6 +22,7 @@ def runCommand(line):
         line[0] = line[0][1:]
     if line[0] == "var":
         if line[1] == "int":
+            print("yup")
             if line[3] == "set":
                 vars[line[2]] = int(line[4]) if line[4].isdigit() else int(vars[line[4]])
             elif line[3] == "add":
@@ -37,7 +38,7 @@ def runCommand(line):
             elif line[3] == "pow":
                 vars[line[2]] **= int(line[4]) if line[4].isdigit() else int(vars[line[4]])
             elif line[3] == "rng":
-                vars[line[2]] = randint(int(line[4]) if line[4].isdigit() else int(vars[line[4]]), int(line[5]) if line[5].isdigit() else int(vars[line[5]]))
+                vars[line[2]] = randint((int(line[4]) if line[4].isdigit() else int(vars[line[4]])), (int(line[5]) if line[5].isdigit() else int(vars[line[5]])))
         elif line[1] == "dbl":
             if line[3] == "set":
                 try: vars[line[2]] = float(line[4])
@@ -133,6 +134,8 @@ def runCommand(line):
                 vars[line[2]] = vars[line[4]][int(line[5])-1 if line[5].isdigit() else int(vars[line[5]])-1]
         elif line[1] == "lin":
             vars[line[2]] = linenum+1
+    elif line[0] == "bug":
+        print(vars)
     elif line[0] == "out":
         print((line[1][1:-1] if line[1][0]=="\"" and line[1][-1]=="\"" else str(vars[line[1]])) if len(line)>1 else "\n",end="")
     elif line[0] == "slp":

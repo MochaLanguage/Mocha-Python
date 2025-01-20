@@ -49,7 +49,7 @@ out outputMessage
 slp 500 /waits for 0.50 seconds/
 err 53
 var fil names "names.txt"
-jmp 55
+jmp +3
 out "Woopsicles!"
 end
 var int nameNum rng 1 10
