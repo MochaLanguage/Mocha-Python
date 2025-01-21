@@ -22,7 +22,6 @@ def runCommand(line):
         line[0] = line[0][1:]
     if line[0] == "var":
         if line[1] == "int":
-            print("yup")
             if line[3] == "set":
                 vars[line[2]] = int(line[4]) if line[4].isdigit() else int(vars[line[4]])
             elif line[3] == "add":
