@@ -134,8 +134,6 @@ def runCommand(line):
                 vars[line[2]] = vars[line[4]][int(line[5])-1 if line[5].isdigit() else int(vars[line[5]])-1]
         elif line[1] == "lin":
             vars[line[2]] = linenum+1
-    elif line[0] == "bug":
-        print(vars)
     elif line[0] == "out":
         print((line[1][1:-1] if line[1][0]=="\"" and line[1][-1]=="\"" else str(vars[line[1]])) if len(line)>1 else "\n",end="")
     elif line[0] == "slp":
