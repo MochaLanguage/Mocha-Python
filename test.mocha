@@ -1,0 +1,10 @@
+out "Hello world!\n"
+var inp name "What is your name?\n> "
+
+out "hi there "
+out name
+out "\nhere's a quote: \"insert quote here\" - anonymous"
+out "test! \\ test"
+hi there
+.out "\nwooooa"
+end

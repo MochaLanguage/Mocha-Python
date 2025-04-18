@@ -2,16 +2,14 @@ import re
 from time import sleep
 from random import randint
 
-with open("main.mocha","r") as f:text=f.read()
+with open("test.mocha","r") as f:text=f.read()
 import re
 
-text = re.sub(r"(?<!\\)/.*?(?<!\\)/", "", text)
-text = re.sub(r"\\/", "/", text)
-
 text = re.sub(r'(".*?")', lambda i: i.group(0).replace(" ", "\x00"), text)
-text = [[i.replace("\\n","\n").replace("\x00", " ") for i in re.split(r"\s+", line.strip())] for line in text.split("\n")]
+text = [[i.replace("\x00", " ").replace("\\\\", "\x00").replace("\\n","\n").replace("\x00", "\\") for i in re.split(r"\s+", line.strip())] for line in text.split("\n")]
 text = [i for i in text if i and i[0] != ""]
 
+with open("test","w") as f:f.write(str(text))
 running = True
 vars={}
 linenum = 0
@@ -134,7 +132,7 @@ def runCommand(line):
         elif line[1] == "lin":
             vars[line[2]] = linenum+1
     elif line[0] == "out":
-        print((line[1][1:-1] if line[1][0]=="\"" and line[1][-1]=="\"" else str(vars[line[1]])) if len(line)>1 else "\n",end="")
+        print((line[1][1:-1] if line[1][0]=="\"" and line[1][-1]=="\"" else str(vars[line[1]])) if len(line)>1 and type(vars[line[1]]) is str else "\n",end="")
     elif line[0] == "slp":
         sleep(float(line[1])/1000)
     elif line[0] == "end":
